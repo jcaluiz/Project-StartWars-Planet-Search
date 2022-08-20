@@ -46,10 +46,12 @@ function StarWarsProvider({ children }) {
   const [addFilterList,
     setAddFilterList] = useState();
 
-  if (buttonClick === true && controlLopping === addFilter.length) {
-    setAddFilter((prevState) => [...prevState, filterByNumericValues]);
-  }
-  console.log(addFilter);
+  useEffect(() => {
+    if (buttonClick === true && controlLopping === addFilter.length) {
+      setAddFilter((prevState) => [...prevState, filterByNumericValues]);
+    }
+    console.log(addFilter);
+  }, [buttonClick]);
 
   const [addFilterListControl, setAddFilterListControl] = useState(0);
   useEffect(() => {
@@ -129,6 +131,7 @@ function StarWarsProvider({ children }) {
     setStateForAddFilterList,
     setListActive,
     listActive,
+    setcolumn,
   };
 
   return (

@@ -8,9 +8,9 @@ function Table() {
   const [dataPlanet, setDataPlanet] = useState();
   const [data] = useGetPlanet();
   const { handleChangeName, filterByName, handleChangeNumber,
-    value, handleClick, handleSelectChange,
-    handleSelectCompasion, column,
-    comparison, addFilter,
+    value, handleClick, handleSelectChange, setcolumn,
+    handleSelectCompasion, column, buttonClick,
+    comparison, addFilter, filterByNumericValues,
     setStateForAddFilterList, listActive } = useContext(StarWarsContext);
 
   const [renderList, setRenderList] = useState(data);
@@ -35,6 +35,71 @@ function Table() {
   }, [listFromNumber]);
 
   setStateForAddFilterList(renderList);
+
+  console.log(filterByNumericValues);
+
+  const [optionListArray, setOptionListArray] = useState([]);
+
+  useEffect(() => {
+    setOptionListArray(['population', 'rotation_period',
+      'orbital_period', 'diameter', 'surface_water']);
+  }, []);
+
+  useEffect(() => {
+    filterByNumericValues.filter((filter, index) => {
+      if (index > 2) {
+        const strippingStringFromOptions = {
+          population: () => {
+            setOptionListArray(optionListArray.filter((item) => item
+            !== 'population'));
+            return setcolumn(optionListArray && optionListArray[0]);
+          },
+          rotation_period: () => {
+            setOptionListArray(optionListArray.filter((item) => item
+            !== 'rotation_period'));
+            return setcolumn(optionListArray && optionListArray[0]);
+          },
+          orbital_period: () => {
+            setOptionListArray(optionListArray.filter((item) => item
+            !== 'orbital_period'));
+            return setcolumn(optionListArray && optionListArray[0]);
+          },
+          diameter: () => {
+            setOptionListArray(optionListArray.filter((item) => item
+            !== 'diameter'));
+            return setcolumn(optionListArray && optionListArray[0]);
+          },
+          surface_water: () => {
+            setOptionListArray(optionListArray.filter((item) => item
+            !== 'surface_water'));
+            return setcolumn(optionListArray && optionListArray[0]);
+          },
+        };
+
+        return strippingStringFromOptions[filter.column]();
+      }
+      if (filterByNumericValues.length === 2) {
+        setOptionListArray(optionListArray.filter((item) => item
+            !== 'population'));
+      }
+      return console.log('strippingStringFromOptions');
+    });
+  }, [buttonClick]);
+
+  console.log(optionListArray);
+
+  const columnFilter = () => (
+    <select
+      onChange={ (e) => handleSelectChange(e) }
+      data-testid="column-filter"
+      value={ column }
+    >
+      {optionListArray.map((option) => (
+        <option key={ option }>{option}</option>
+      ))}
+
+    </select>
+  );
 
   const elementList = () => (listActive ? renderList && renderList.map((item, index) => (
     <tbody key={ index }>
@@ -70,17 +135,7 @@ function Table() {
             onChange={ (e) => handleChangeName(e) }
           />
         </label>
-        <select
-          onChange={ (e) => handleSelectChange(e) }
-          data-testid="column-filter"
-          value={ column }
-        >
-          <option>population</option>
-          <option>rotation_period</option>
-          <option>orbital_period</option>
-          <option>diameter</option>
-          <option>surface_water</option>
-        </select>
+        {columnFilter()}
         <select
           data-testid="comparison-filter"
           onChange={ (e) => handleSelectCompasion(e) }
