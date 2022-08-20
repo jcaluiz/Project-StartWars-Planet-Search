@@ -3,16 +3,16 @@ import StarWarsContext from '../context/StarWarsContext';
 
 function useGetPlanet() {
   const { data: dataContext } = useContext(StarWarsContext);
-  const [data, setData] = useState();
+  const [data, setDataPlanet] = useState();
 
   useEffect(() => {
     if (dataContext.results !== undefined) {
-      setData(dataContext.results.filter((e) => delete e.residents));
+      setDataPlanet(dataContext.results.filter((e) => delete e.residents));
     }
-  }, [dataContext, setData]);
+  }, [dataContext, setDataPlanet]);
 
   return (
-    [data]
+    [data, setDataPlanet]
   );
 }
 

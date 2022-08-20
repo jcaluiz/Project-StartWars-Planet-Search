@@ -10,16 +10,51 @@ function Table() {
   const { handleChangeName, filterByName, handleChangeNumber,
     value, handleClick, handleSelectChange,
     handleSelectCompasion, column,
-    comparison } = useContext(StarWarsContext);
+    comparison, addFilter,
+    setStateForAddFilterList, listActive } = useContext(StarWarsContext);
 
   const [renderList, setRenderList] = useState(data);
 
-  useEffect(() => setDataPlanet(data), [data]);
+  useEffect(() => {
+    setDataPlanet(data);
+  }, [data]);
+
+  const [listFromNumber, setListFromNumber] = useState(data);
 
   // Para filtrar o nome
-  useFilterPlanetTag(data, setRenderList, filterByName, 'name');
+  const [useStatePlanet] = useFilterPlanetTag(data, filterByName, 'name');
   // Para filtrar o numero
-  useFilterPlanetTagNumber(data, setRenderList);
+  useFilterPlanetTagNumber(data, setListFromNumber);
+
+  useEffect(() => {
+    setRenderList(useStatePlanet);
+  }, [useStatePlanet]);
+
+  useEffect(() => {
+    setRenderList(listFromNumber);
+  }, [listFromNumber]);
+
+  setStateForAddFilterList(renderList);
+
+  const elementList = () => (listActive ? renderList && renderList.map((item, index) => (
+    <tbody key={ index }>
+      <tr>
+        { Object.values(item).map((itemOfValue) => (
+          <td key={ itemOfValue[12] }>{itemOfValue}</td>
+        ))}
+      </tr>
+    </tbody>
+  )) : (
+    renderList && renderList.map((item, index) => (
+      <tbody key={ index }>
+        <tr>
+          { Object.values(item).map((itemOfValue) => (
+            <td key={ itemOfValue[12] }>{itemOfValue}</td>
+          ))}
+        </tr>
+      </tbody>
+    ))
+  ));
 
   return (
     <>
@@ -75,6 +110,17 @@ function Table() {
 
         </button>
       </form>
+      {addFilter && addFilter
+        .map((filtroAdicionado, index) => (
+          <p key={ index }>
+            {filtroAdicionado.column}
+            {' '}
+            {filtroAdicionado.comparison}
+            {' '}
+            {filtroAdicionado.value}
+            {' '}
+          </p>
+        ))}
       <table>
         <thead>
           <tr>
@@ -83,24 +129,17 @@ function Table() {
             ))}
           </tr>
         </thead>
-        {renderList ? renderList.map((item, index) => (
-          <tbody key={ index }>
-            <tr>
-              { Object.values(item).map((itemOfValue) => (
-                <td key={ itemOfValue[12] }>{itemOfValue}</td>
-              ))}
-            </tr>
-          </tbody>
-        )) : (
-          data && data.map((item, index) => (
-            <tbody key={ index }>
-              <tr>
-                { Object.values(item).map((itemOfValue) => (
-                  <td key={ itemOfValue[12] }>{itemOfValue}</td>
-                ))}
-              </tr>
-            </tbody>
-          )))}
+        {renderList ? elementList()
+          : (
+            data && data.map((item, index) => (
+              <tbody key={ index }>
+                <tr>
+                  { Object.values(item).map((itemOfValue) => (
+                    <td key={ itemOfValue[12] }>{itemOfValue}</td>
+                  ))}
+                </tr>
+              </tbody>
+            )))}
       </table>
     </>
   );
