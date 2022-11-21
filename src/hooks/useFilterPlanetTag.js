@@ -1,14 +1,16 @@
 import { useContext, useEffect, useState } from 'react';
 import StarWarsContext from '../context/StarWarsContext';
 
-function useFilterPlanetTag(state, inputFilter, tag) {
+function useFilterPlanetTag(state, inputFilter) {
   const [useStatePlanet, setUseStatePlanet] = useState(state);
+
   useEffect(() => {
     if (state !== undefined) {
       setUseStatePlanet(inputFilter && state
-        .filter((e) => e[tag].toLowerCase()
+        .filter((e) => e.name.toLowerCase()
           .includes((inputFilter))));
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [inputFilter]);
 
   return [useStatePlanet];
@@ -20,6 +22,7 @@ export function useFilterPlanetTagNumber(state, setState) {
 
   const [controlFilterList, setControlFilterList] = useState(0);
   console.log(controlFilterList);
+  console.log(filterByNumericValues);
 
   const [filterList, setFilterList] = useState(state);
   useEffect(() => {
@@ -27,6 +30,7 @@ export function useFilterPlanetTagNumber(state, setState) {
     && filterByNumericValues !== undefined) {
       setFilterList(state);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [buttonClick]);
 
   useEffect(() => {
@@ -50,6 +54,7 @@ export function useFilterPlanetTagNumber(state, setState) {
         return console.log(filterList);
       });
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [buttonClick]);
 
   const [active, setActive] = useState(false);
@@ -62,13 +67,8 @@ export function useFilterPlanetTagNumber(state, setState) {
     if (active === false) {
       setActive(true);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filterList]);
-
-  // const [filterListLength, setFilterListLength] = useState(1);
-
-  // useEffect(() => {
-  //   setFilterListLength(filterList && filterList.length);
-  // }, [filterList]);
 
   useEffect(() => {
     setState(filterList);

@@ -50,7 +50,7 @@ function StarWarsProvider({ children }) {
     if (buttonClick === true && controlLopping === addFilter.length) {
       setAddFilter((prevState) => [...prevState, filterByNumericValues]);
     }
-    console.log(addFilter);
+    // console.log(addFilter);
   }, [buttonClick]);
 
   const [addFilterListControl, setAddFilterListControl] = useState(0);
@@ -69,15 +69,15 @@ function StarWarsProvider({ children }) {
       setAddFilterList((prevState) => [...prevState, stateForAddFilterList]);
     }
   }, [addFilterList, stateForAddFilterList]);
-  console.log(stateForAddFilterList);
-  console.log(addFilterList);
+  // console.log(stateForAddFilterList);
+  // console.log(addFilterList);
   // console.log(addFilterList && addFilterList[addFilterList.length - 1]);
   // console.log(addFilterList && addFilterList[addFilterList.length - 2]);
 
   useEffect(() => {
     setFilterByNumericValues((prevState) => [...prevState, {
-      column, comparison, value }]);
-  }, [value, comparison, column]);
+      column, comparison, value: Number(value) }]);
+  }, [buttonClick]);
 
   // const [filterList, setFilterList] = useState(state);
 
@@ -105,7 +105,7 @@ function StarWarsProvider({ children }) {
   // }, [buttonClick]);
 
   const [listActive, setListActive] = useState(false);
-  console.log(listActive);
+  // console.log(listActive);
 
   const myContext = {
     data,

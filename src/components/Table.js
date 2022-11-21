@@ -1,4 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
+import Form from 'react-bootstrap/Form';
+import InputGroup from 'react-bootstrap/InputGroup';
+import Button from 'react-bootstrap/Button';
 import useGetPlanet from '../hooks/useGetPlanet';
 import StarWarsContext from '../context/StarWarsContext';
 import useFilterPlanetTag,
@@ -22,7 +25,8 @@ function Table() {
   const [listFromNumber, setListFromNumber] = useState(data);
 
   // Para filtrar o nome
-  const [useStatePlanet] = useFilterPlanetTag(data, filterByName, 'name');
+  const [useStatePlanet] = useFilterPlanetTag(data, filterByName);
+
   // Para filtrar o numero
   useFilterPlanetTagNumber(data, setListFromNumber);
 
@@ -84,21 +88,21 @@ function Table() {
       }
       return console.log('strippingStringFromOptions');
     });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [buttonClick]);
 
-  console.log(optionListArray);
-
   const columnFilter = () => (
-    <select
+    <Form.Select
+      aria-label="Default select example"
+      data-testid="comparison-filter"
+      className="select-input"
       onChange={ (e) => handleSelectChange(e) }
-      data-testid="column-filter"
       value={ column }
     >
       {optionListArray.map((option) => (
         <option key={ option }>{option}</option>
       ))}
-
-    </select>
+    </Form.Select>
   );
 
   const elementList = () => (listActive ? renderList && renderList.map((item, index) => (
@@ -123,48 +127,63 @@ function Table() {
 
   return (
     <>
-      <form>
-
-        <label htmlFor="name-filter">
-          Pesquise por nome
-          {' '}
-          <input
+      <div id="input-container">
+        <InputGroup size="sm" className="mb-3">
+          <InputGroup.Text
+            id="inputGroup-sizing-sm"
+            htmlFor="name-filter"
+          >
+            Pesquise por nome
+          </InputGroup.Text>
+          <Form.Control
+            aria-label="Small"
+            aria-describedby="inputGroup-sizing-sm"
             type="text"
             data-testid="name-filter"
             id="name-filter"
             onChange={ (e) => handleChangeName(e) }
           />
-        </label>
-        {columnFilter()}
-        <select
+        </InputGroup>
+        <Form.Select
+          aria-label="Default select example"
           data-testid="comparison-filter"
+          className="select-input"
           onChange={ (e) => handleSelectCompasion(e) }
           value={ comparison }
         >
           <option>maior que</option>
           <option>menor que</option>
           <option>igual a</option>
-        </select>
-        <label htmlFor="number-filter">
-          Pesquise por número
-          {' '}
-          <input
+        </Form.Select>
+        <br />
+        {columnFilter()}
+        <br />
+        <InputGroup size="sm" className="mb-3">
+          <InputGroup.Text
+            id="inputGroup-sizing-sm"
+            htmlFor="number-filter"
+          >
+            Pesquise por número
+          </InputGroup.Text>
+          <Form.Control
+            aria-label="Small"
+            aria-describedby="inputGroup-sizing-sm"
             type="number"
             data-testid="value-filter"
             id="number-filter"
             value={ value }
             onChange={ (e) => handleChangeNumber(e) }
           />
-        </label>
-        <button
+        </InputGroup>
+        <Button
           type="button"
           data-testid="button-filter"
+          id="button-filter"
           onClick={ handleClick }
         >
           Filtro
-
-        </button>
-      </form>
+        </Button>
+      </div>
       {addFilter && addFilter
         .map((filtroAdicionado, index) => (
           <p key={ index }>
