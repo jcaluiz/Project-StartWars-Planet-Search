@@ -6,12 +6,14 @@ import useGetPlanet from '../hooks/useGetPlanet';
 import StarWarsContext from '../context/StarWarsContext';
 import useFilterPlanetTag,
 { useFilterPlanetTagNumber } from '../hooks/useFilterPlanetTag';
+import SelectKindFilter from '../utils/SelectKindFilter';
+import nave1 from '../images/nave-starwars.png';
 
 function Table() {
   const [dataPlanet, setDataPlanet] = useState();
   const [data] = useGetPlanet();
   const { handleChangeName, filterByName, handleChangeNumber,
-    value, handleClick, handleSelectChange, setcolumn,
+    value, handleClick, handleSelectChange,
     handleSelectCompasion, column, buttonClick,
     comparison, addFilter, filterByNumericValues,
     setStateForAddFilterList, listActive } = useContext(StarWarsContext);
@@ -40,56 +42,8 @@ function Table() {
 
   setStateForAddFilterList(renderList);
 
-  console.log(filterByNumericValues);
-
-  const [optionListArray, setOptionListArray] = useState([]);
-
-  useEffect(() => {
-    setOptionListArray(['population', 'rotation_period',
-      'orbital_period', 'diameter', 'surface_water']);
-  }, []);
-
-  useEffect(() => {
-    filterByNumericValues.filter((filter, index) => {
-      if (index > 2) {
-        const strippingStringFromOptions = {
-          population: () => {
-            setOptionListArray(optionListArray.filter((item) => item
-            !== 'population'));
-            return setcolumn(optionListArray && optionListArray[0]);
-          },
-          rotation_period: () => {
-            setOptionListArray(optionListArray.filter((item) => item
-            !== 'rotation_period'));
-            return setcolumn(optionListArray && optionListArray[0]);
-          },
-          orbital_period: () => {
-            setOptionListArray(optionListArray.filter((item) => item
-            !== 'orbital_period'));
-            return setcolumn(optionListArray && optionListArray[0]);
-          },
-          diameter: () => {
-            setOptionListArray(optionListArray.filter((item) => item
-            !== 'diameter'));
-            return setcolumn(optionListArray && optionListArray[0]);
-          },
-          surface_water: () => {
-            setOptionListArray(optionListArray.filter((item) => item
-            !== 'surface_water'));
-            return setcolumn(optionListArray && optionListArray[0]);
-          },
-        };
-
-        return strippingStringFromOptions[filter.column]();
-      }
-      if (filterByNumericValues.length === 2) {
-        setOptionListArray(optionListArray.filter((item) => item
-            !== 'population'));
-      }
-      return console.log('strippingStringFromOptions');
-    });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [buttonClick]);
+  const [optionListArray] = SelectKindFilter(filterByNumericValues,
+    buttonClick);
 
   const columnFilter = () => (
     <Form.Select
@@ -127,6 +81,21 @@ function Table() {
 
   return (
     <>
+      <div id="logo-container">
+
+        <img
+          className="img-responsive logo"
+          src="http://imageshack.com/a/img922/3783/oyvsRd.png"
+          alt="imagem logo Star Wars"
+        />
+      </div>
+      <div>
+        <img
+          src={ nave1 }
+          alt="imagem nave starwars"
+          id="nave-starwars-1"
+        />
+      </div>
       <div id="input-container">
         <InputGroup size="sm" className="mb-3">
           <InputGroup.Text
@@ -158,31 +127,33 @@ function Table() {
         <br />
         {columnFilter()}
         <br />
-        <InputGroup size="sm" className="mb-3">
-          <InputGroup.Text
-            id="inputGroup-sizing-sm"
-            htmlFor="number-filter"
+        <div id="number-filter-container">
+          <InputGroup size="sm" className="mb-3">
+            <InputGroup.Text
+              id="inputGroup-sizing-sm"
+              htmlFor="number-filter"
+            >
+              Pesquise por número
+            </InputGroup.Text>
+            <Form.Control
+              aria-label="Small"
+              aria-describedby="inputGroup-sizing-sm"
+              type="number"
+              data-testid="value-filter"
+              id="number-filter"
+              value={ value }
+              onChange={ (e) => handleChangeNumber(e) }
+            />
+          </InputGroup>
+          <Button
+            type="button"
+            data-testid="button-filter"
+            id="button-filter"
+            onClick={ handleClick }
           >
-            Pesquise por número
-          </InputGroup.Text>
-          <Form.Control
-            aria-label="Small"
-            aria-describedby="inputGroup-sizing-sm"
-            type="number"
-            data-testid="value-filter"
-            id="number-filter"
-            value={ value }
-            onChange={ (e) => handleChangeNumber(e) }
-          />
-        </InputGroup>
-        <Button
-          type="button"
-          data-testid="button-filter"
-          id="button-filter"
-          onClick={ handleClick }
-        >
-          Filtro
-        </Button>
+            Filtro
+          </Button>
+        </div>
       </div>
       {addFilter && addFilter
         .map((filtroAdicionado, index) => (

@@ -1,16 +1,52 @@
 body {
   padding: 0;
   margin: 0;
-  background: linear-gradient(-45deg,#272424,#352c2f,#153541,#20493d) no-repeat;
+  background: url("http://wallpapercave.com/wp/pEeUsp1.jpg");
   height: 100vh;
-  color: rgb(194, 196, 199);
+  color: #A7CCED;
   width: 100vw;
   background-size: 133vw 165vh;
+  animation: gradient 300s ease-in-out infinite;
+}
+
+#logo-container {
+  width: 1343px;
+  display: flex;
+  justify-content: center;
+}
+
+@keyframes gradient{
+  0% {
+    background-position: 0% 50%;
+  }
+  
+  50% {
+    background-position: 100% 50%;
+  }
+  
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+#nave-starwars-1 {
+  width: 200px;
+  opacity: 0.35;
+  animation-name: fly;
+  animation-duration: 50s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+@keyframes fly {
+  100% {
+    transform: translateX(calc(100vw - 200px));
+  }
 }
 
 #input-container {
   display: flex;
-  width: 200vh;
+  width: 1343px;
 }
 
 .mb-3 {
@@ -38,10 +74,60 @@ body {
   }
 }
 
+table {
+  margin-left: 10px;
+}
+
 th {
-  border: 1px solid rgb(155, 156, 57);
+  border: 1px solid #63ADF2;
+  background: #A7CCED;
+  color: black;
+  text-align: center;
+  padding: 5px;
 }
 
 td {
-  border: 1px solid rgb(155, 156, 57);
+  border: 1px solid #63ADF2;
+  text-align: center;
+}
+
+#number-filter-container {
+  display: flex;
+  width: 355px;
+  gap: 10px;
+  /* margin-top: 20px; */
+}
+
+@media (max-width: 920px) {
+  body {
+    background-size: 260vw 260vh;
+    background: url("http://wallpapercave.com/wp/pEeUsp1.jpg");
+  }
+
+  /* .img-responsive {
+    width: 200px;
+    margin-left: 47px;
+  } */
+
+  #logo-container img {
+    width: auto;
+    height: 100px;
+    height: 50px;
+  }
+
+  #input-container {
+    display: flex;
+    flex-wrap: wrap;
+    width: 280px;
+    margin-bottom: 20px;
+    margin-left: 90px;
+  }
+
+  th {
+    font-size: 8px;
+  }
+
+  td {
+    font-size: 8px;
+  }
 }
