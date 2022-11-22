@@ -1,0 +1,14 @@
+{
+  "files": {
+    "main.css": "/project-starwars-search/static/css/main.7ebe5c09.css",
+    "main.js": "/project-starwars-search/static/js/main.151662fa.js",
+    "static/media/nave-starwars.png": "/project-starwars-search/static/media/nave-starwars.8ed9e5d12a08149675bd.png",
+    "index.html": "/project-starwars-search/index.html",
+    "main.7ebe5c09.css.map": "/project-starwars-search/static/css/main.7ebe5c09.css.map",
+    "main.151662fa.js.map": "/project-starwars-search/static/js/main.151662fa.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.7ebe5c09.css",
+    "static/js/main.151662fa.js"
+  ]
+}
