@@ -8,7 +8,7 @@ function useFilterPlanetTag(state, inputFilter) {
     if (state !== undefined) {
       setUseStatePlanet(inputFilter && state
         .filter((e) => e.name.toLowerCase()
-          .includes((inputFilter))));
+          .includes((inputFilter.toLowerCase()))));
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [inputFilter]);
