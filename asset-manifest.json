@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/Project-StartWars-Planet-Search/static/css/main.7ebe5c09.css",
-    "main.js": "/Project-StartWars-Planet-Search/static/js/main.84dc3e78.js",
+    "main.js": "/Project-StartWars-Planet-Search/static/js/main.d50ef1f4.js",
     "static/media/nave-starwars.png": "/Project-StartWars-Planet-Search/static/media/nave-starwars.8ed9e5d12a08149675bd.png",
     "index.html": "/Project-StartWars-Planet-Search/index.html",
     "main.7ebe5c09.css.map": "/Project-StartWars-Planet-Search/static/css/main.7ebe5c09.css.map",
-    "main.84dc3e78.js.map": "/Project-StartWars-Planet-Search/static/js/main.84dc3e78.js.map"
+    "main.d50ef1f4.js.map": "/Project-StartWars-Planet-Search/static/js/main.d50ef1f4.js.map"
   },
   "entrypoints": [
     "static/css/main.7ebe5c09.css",
-    "static/js/main.84dc3e78.js"
+    "static/js/main.d50ef1f4.js"
   ]
 }
