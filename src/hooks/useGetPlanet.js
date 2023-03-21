@@ -1,18 +1,19 @@
-import { useContext, useEffect, useState } from 'react';
-import StarWarsContext from '../context/StarWarsContext';
+import { useEffect, useState } from 'react';
 
 function useGetPlanet() {
-  const { data: dataContext } = useContext(StarWarsContext);
-  const [data, setDataPlanet] = useState();
+  const [data, setData] = useState([]);
+  const getPlanetAPI = async () => {
+    const endpoint = await fetch('https://starwars-api-production.up.railway.app/get_planets');
+    const dataFetch = await endpoint.json();
+    setData(dataFetch);
+  };
 
   useEffect(() => {
-    if (dataContext.results !== undefined) {
-      setDataPlanet(dataContext.results.filter((e) => delete e.residents));
-    }
-  }, [dataContext, setDataPlanet]);
+    getPlanetAPI();
+  }, []);
 
   return (
-    [data, setDataPlanet]
+    { data }
   );
 }
 
