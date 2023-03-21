@@ -11,3 +11,8 @@ Não deixe de usar nossas dicas de escrita de README de projetos, e deixe sua cr
 - quais arquivos/pastas foram desenvolvidos por outra pessoa estudante;
 - quais arquivos/pastas foram desenvolvidos pela Trybe.
 -->
+
+# Projeto Star Wars
+
+Este é um projeto que possui uma lista com filtros de planetas do universo de Star Wars usando Context API e Hooks para controlar os estados globais.
+
